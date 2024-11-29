@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "phaser": "^3.87.0",
+    "pixi.js": "^8.5.2"
+  }
+}
