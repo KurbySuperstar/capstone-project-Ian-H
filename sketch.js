@@ -17,21 +17,16 @@ let Pirhana;
 function preload() {
   soundFormats('mp3', 'ogg')
   carSelectMusic = loadSound("resources/F-Zero - Intro (Super Nintendo) [ ezmp3.cc ].mp3")
+  Falcon = loadImage('resources/falcon1.gif');
+  Taxi = loadImage('resources/taxi.gif');
+  Pirhana = loadImage('resources/Pcar.gif');
+  Goose = loadImage('resources/goose.gif');
   
 }
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  Falcon = createVideo('resources/Test.gif"');
-  Falcon.hide();
   tunnelVideo = createVideo('resources/Tunnel Lights Passage Free Stock Video - Pixabay.mp4');
   tunnelVideo.hide();
-  // Taxi = createVideo('Yellow Taxi Car.gif"');
-  // Taxi.hide();
-  // Goose = createVideo('resources/Wild Goose Green Car.gif"');
-  // Goose.hide();
-  // Pirhana = createVideo('resources/Pihrana Car.gif"');
-  // Pirhana.hide();
-  // frameRate(60);
 
 }
 
@@ -45,21 +40,18 @@ function draw() {
   if (gameActive === 1) {
     background(255)
     if (mouseIsPressed && musicStarted === false) {
-      Falcon.loop();
-      // Goose.loop();
-      // Taxi.loop();
-      // Pirhana.loop();
+
       tunnelVideo.loop();
       carSelectMusic.loop();
+
       musicStarted = true;
     }
 
     image(tunnelVideo, 0, 0, width, height);
-    image(Falcon, width/5, height/1.5);
-    // image(Goose, width/4, height/1.5, 100, 100);
-    // image(Taxi, width/3, height/1.5, 100, 100);
-    // image(Pirhana, width/2, height/1.5, 100, 100);
-
+    image(Falcon, width/4, height/1.5,200,200);
+    image(Taxi,width/1.7,height/1.5,200,200)
+    image(Pirhana,width/1.7,height/2.5,200,200)
+    image(Goose,width/4,height/2.5,200,200)
     carSelectionScreen();
   }
 }
@@ -100,5 +92,8 @@ function carSelectionScreen() {
   text(carSelectionText, width / 2, height / 5);
 
 
+}
+function SelectHitbox(){
+  
 }
 
