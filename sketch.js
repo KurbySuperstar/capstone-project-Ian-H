@@ -6,13 +6,17 @@ let Title = 'Top Zero';
 let gameActive = 0;
 let menuScreen;
 let tunnelVideo;
+let mapVideo;
 let carSelectionText = 'Choose Your Car!'
 let carSelectMusic;
+let mapSelectionText = 'Choose Your Map!'
 let musicStarted = false;
+let mapMusicStarted = false;
 let Falcon;
 let Taxi;
 let Goose;
 let Pirhana;
+let carSelect;
 
 function preload() {
   soundFormats('mp3', 'ogg')
@@ -27,6 +31,8 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   tunnelVideo = createVideo('resources/Tunnel Lights Passage Free Stock Video - Pixabay.mp4');
   tunnelVideo.hide();
+  mapVideo = createVideo("resources/Tunnel Beautiful Wallpaper Passage Free Stock Video - Pixabay.mp4");
+  mapVideo.hide();
 
 }
 
@@ -48,11 +54,24 @@ function draw() {
     }
 
     image(tunnelVideo, 0, 0, width, height);
-    image(Falcon, width/4, height/1.5,200,200);
-    image(Taxi,width/1.7,height/1.5,200,200)
-    image(Pirhana,width/1.7,height/2.5,200,200)
-    image(Goose,width/4,height/2.5,200,200)
+    image(Falcon, width/4, height/1.75,400,400);
+    image(Taxi,width/1.7,height/1.75,400,400)
+    image(Pirhana,width/1.7,height/5.5,400,400)
+    image(Goose,width/4,height/5.5,400,400)
     carSelectionScreen();
+  }
+  if (gameActive === 2){
+    background(255)
+    if (mouseIsPressed && mapMusicStarted === false) {
+
+      mapVideo.loop();
+
+      mapMusicStarted = true;
+    }
+    image(mapVideo, 0, 0, width, height);
+    mapSelectionScreen();
+
+    
   }
 }
 function myBackground() {
@@ -93,7 +112,41 @@ function carSelectionScreen() {
 
 
 }
-function SelectHitbox(){
-  
-}
+function mapSelectionScreen(){
+  stroke(0);
+  fill(0, 255, 50);
+  textAlign(CENTER);
+  textSize(30);
+  text(mapSelectionText, width / 2, height / 5);
 
+}
+function mousePressed(){
+  if((mouseX > width/4 && mouseX < width/4+375 ) && (mouseY > height/1.75 && mouseY < height/1.75+400 )&& (gameActive === 1)){
+    //falcon
+    carSelect = 1;
+    gameActive = 2;
+
+  }
+  if((mouseX > width/1.7 && mouseX < width/1.7+375 ) && (mouseY > height/1.75 && mouseY < height/1.75+400 )&& (gameActive === 1)){
+    //taxi
+    carSelect = 2;
+    gameActive = 2;
+
+  }
+  if((mouseX > width/4 && mouseX < width/4+375 ) && (mouseY > height/5.5 && mouseY < height/5.5+400 )&& (gameActive === 1)){
+    //pirhana
+    carSelect = 3;
+    gameActive = 2;
+
+  }
+  if((mouseX > width/1.7 && mouseX < width/1.7+375 ) && (mouseY > height/5.5 && mouseY < height/5.5+400 )&& (gameActive === 1)){
+    //goose
+    carSelect = 4;
+    gameActive = 2;
+
+  }
+
+
+
+
+}
