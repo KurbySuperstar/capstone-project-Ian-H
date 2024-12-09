@@ -17,6 +17,14 @@ let Taxi;
 let Goose;
 let Pirhana;
 let carSelect;
+let bigBlue;
+let muteCity;
+let mapSelect;
+let muteCityMap;
+let panX = 0;
+let panY = 0;
+let playerC;
+
 
 function preload() {
   soundFormats('mp3', 'ogg')
@@ -25,6 +33,11 @@ function preload() {
   Taxi = loadImage('resources/taxi.gif');
   Pirhana = loadImage('resources/Pcar.gif');
   Goose = loadImage('resources/goose.gif');
+  bigBlue = loadImage('resources/BigBlue.png');
+  muteCity = loadImage('resources/MuteCity.png');
+  muteCityMap = loadImage('resources/MuteCityMap.png');
+  playerC = loadImage('resources/FZeroCar.png');
+
   
 }
 function setup() {
@@ -61,7 +74,7 @@ function draw() {
     carSelectionScreen();
   }
   if (gameActive === 2){
-    background(255)
+    background(255);
     if (mouseIsPressed && mapMusicStarted === false) {
 
       mapVideo.loop();
@@ -69,9 +82,19 @@ function draw() {
       mapMusicStarted = true;
     }
     image(mapVideo, 0, 0, width, height);
+
     mapSelectionScreen();
+    image(muteCity, width/4, height/2.4,400,400);
+    image(bigBlue,width/1.7,height/2.4,400,400)
 
     
+  }
+  if (gameActive === 3){
+    background(255);
+    if (mapSelect === 2){
+      image(muteCityMap,0 + panX,0 + panY);
+      playerCar();
+    }
   }
 }
 function myBackground() {
@@ -125,28 +148,52 @@ function mousePressed(){
     //falcon
     carSelect = 1;
     gameActive = 2;
+    return;
 
   }
   if((mouseX > width/1.7 && mouseX < width/1.7+375 ) && (mouseY > height/1.75 && mouseY < height/1.75+400 )&& (gameActive === 1)){
     //taxi
     carSelect = 2;
     gameActive = 2;
+    return;
 
   }
   if((mouseX > width/4 && mouseX < width/4+375 ) && (mouseY > height/5.5 && mouseY < height/5.5+400 )&& (gameActive === 1)){
     //pirhana
     carSelect = 3;
     gameActive = 2;
+    return;
 
   }
   if((mouseX > width/1.7 && mouseX < width/1.7+375 ) && (mouseY > height/5.5 && mouseY < height/5.5+400 )&& (gameActive === 1)){
     //goose
     carSelect = 4;
     gameActive = 2;
+    return;
 
   }
+  if((mouseX > width/1.7 && mouseX < width/1.7+375 ) && (mouseY > height/2.4 && mouseY < height/2.4+400 )&& (gameActive === 2)){
+    //BigBlue
 
+      mapSelect = 1;
+      gameActive = 3;
+      return;
+    
 
+  }
+  if((mouseX > width/4 && mouseX < width/2.4+375 ) && (mouseY > height/2.4 && mouseY < height/2.4+400 )&& (gameActive === 2)){
+    //mutCIty
+      mapSelect = 2;
+      gameActive = 3;
+      return;
 
+    
 
+  }
+}
+function playerCar(){
+  image(playerC,width/2,height/2,50,50)
+  if(keyCode === RIGHT_ARROW && keyIsDown(RIGHT_ARROW)){
+    panX -= 20
+  }
 }
