@@ -21,9 +21,12 @@ let bigBlue;
 let muteCity;
 let mapSelect;
 let muteCityMap;
-let panX = 0;
+let panX = -1200;
 let panY = 0;
 let playerC;
+let bigBlueMusic;
+let muteCityMusic;
+let go = true;
 
 
 function preload() {
@@ -37,6 +40,8 @@ function preload() {
   muteCity = loadImage('resources/MuteCity.png');
   muteCityMap = loadImage('resources/MuteCityMap.png');
   playerC = loadImage('resources/FZeroCar.png');
+  bigBlueMusic = loadSound("resources/F-Zero - Big Blue (Super Nintendo).mp3")
+  muteCityMusic = loadSound("resources/F-Zero - Mute City (Super Nintendo).mp3")
 
   
 }
@@ -90,11 +95,17 @@ function draw() {
     
   }
   if (gameActive === 3){
+    carSelectMusic.stop();
     background(255);
+    if (go === true){
+      muteCityMusic.loop();
+      go = false
+    }
     if (mapSelect === 2){
       image(muteCityMap,0 + panX,0 + panY);
       playerCar();
     }
+    
   }
 }
 function myBackground() {
@@ -194,6 +205,24 @@ function mousePressed(){
 function playerCar(){
   image(playerC,width/2,height/2,50,50)
   if(keyCode === RIGHT_ARROW && keyIsDown(RIGHT_ARROW)){
-    panX -= 20
+    if (panX > -5670){
+      panX -= 20
+    }
+
+  }
+  if(keyCode === LEFT_ARROW && keyIsDown(LEFT_ARROW)){
+    if (panX < 565){
+      panX += 20
+    }
+  }
+  if(keyCode === DOWN_ARROW && keyIsDown(DOWN_ARROW)){
+    if (panY > -2660){
+      panY -= 20
+    }
+  }
+  if(keyCode === UP_ARROW && keyIsDown(UP_ARROW)){
+    if (panY < 180){
+      panY += 20
+    }
   }
 }
