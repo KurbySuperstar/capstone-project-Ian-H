@@ -27,6 +27,8 @@ let playerC;
 let bigBlueMusic;
 let muteCityMusic;
 let go = true;
+let playerSpeed = 30;
+let bigBlueMap;
 
 
 function preload() {
@@ -37,13 +39,12 @@ function preload() {
   Pirhana = loadImage('resources/Pcar.gif');
   Goose = loadImage('resources/goose.gif');
   bigBlue = loadImage('resources/BigBlue.png');
+  bigBlueMap = loadImage("resources/bigBlueMap.png")
   muteCity = loadImage('resources/MuteCity.png');
   muteCityMap = loadImage('resources/MuteCityMap.png');
   playerC = loadImage('resources/FZeroCar.png');
   bigBlueMusic = loadSound("resources/F-Zero - Big Blue (Super Nintendo).mp3")
   muteCityMusic = loadSound("resources/F-Zero - Mute City (Super Nintendo).mp3")
-
-  
 }
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -97,11 +98,19 @@ function draw() {
   if (gameActive === 3){
     carSelectMusic.stop();
     background(255);
-    if (go === true){
-      muteCityMusic.loop();
-      go = false
+    if (mapSelect === 1){
+      if (go === true){
+        bigBlueMusic.loop();
+        go = false
+      }
+      image(bigBlueMap,0 + panX,0 + panY);
+      playerCar();
     }
     if (mapSelect === 2){
+      if (go === true){
+        muteCityMusic.loop();
+        go = false
+      }
       image(muteCityMap,0 + panX,0 + panY);
       playerCar();
     }
@@ -203,26 +212,80 @@ function mousePressed(){
   }
 }
 function playerCar(){
+  
   image(playerC,width/2,height/2,50,50)
-  if(keyCode === RIGHT_ARROW && keyIsDown(RIGHT_ARROW)){
+  upAngles();
+  downAngles();
+}
+function upAngles(){
+  if(keyIsDown(UP_ARROW) && keyIsDown(LEFT_ARROW)){
+    if (panX < 565){
+      if (panY < 180){
+      panX += playerSpeed/2.25
+      panY += playerSpeed
+      return;
+      }
+    }
+  }
+  else if(keyIsDown(DOWN_ARROW)){
+    if (panY > -2660){
+      panY -= playerSpeed
+      return;
+    }
+  }
+
+
+  if(keyIsDown(UP_ARROW) && keyIsDown(RIGHT_ARROW)){
+    if (panX < -180){
+      if (panY < 180){
+      panX -= playerSpeed/2.25
+      panY += playerSpeed
+      return;
+      }
+    }
+  }
+  else if(keyIsDown(UP_ARROW)){
+    if (panY < 180){
+      panY += playerSpeed
+      return;
+    }
+  }
+
+}
+function downAngles(){
+  if(keyIsDown(DOWN_ARROW) && keyIsDown(RIGHT_ARROW)){
     if (panX > -5670){
-      panX -= 20
+      if (panY > - 2660){
+      panX -= playerSpeed/1.25
+      panY -= playerSpeed/2
+      return;
+      }
     }
 
   }
-  if(keyCode === LEFT_ARROW && keyIsDown(LEFT_ARROW)){
+  else if(keyIsDown(RIGHT_ARROW)){
+    if (panX > -5670){
+      panX -= playerSpeed
+      return;
+    }
+
+  }
+
+  if(keyIsDown(DOWN_ARROW) && keyIsDown(LEFT_ARROW)){
+    if (panX < -180){
+      if (panY > - 2660){
+      panX += playerSpeed/1.25
+      panY -= playerSpeed/2
+      return;
+      }
+    }
+  }
+  
+  else if( keyIsDown(LEFT_ARROW)){
     if (panX < 565){
-      panX += 20
+      panX += playerSpeed
+      return;
     }
   }
-  if(keyCode === DOWN_ARROW && keyIsDown(DOWN_ARROW)){
-    if (panY > -2660){
-      panY -= 20
-    }
-  }
-  if(keyCode === UP_ARROW && keyIsDown(UP_ARROW)){
-    if (panY < 180){
-      panY += 20
-    }
-  }
+
 }
