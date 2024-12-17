@@ -29,6 +29,7 @@ let muteCityMusic;
 let go = true;
 let playerSpeed = 30;
 let bigBlueMap;
+let c;
 
 
 function preload() {
@@ -113,6 +114,10 @@ function draw() {
       }
       image(muteCityMap,0 + panX,0 + panY);
       playerCar();
+      c = get(width/2, height/2 +50);
+      stroke
+      fill(c)
+      rect(width/2,height/2+50,50)
     }
     
   }
@@ -287,5 +292,8 @@ function downAngles(){
       return;
     }
   }
+
+}
+function testSquare(){
 
 }
