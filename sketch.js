@@ -106,6 +106,10 @@ function draw() {
       }
       image(bigBlueMap,0 + panX,0 + panY);
       playerCar();
+      c = get(width/2, height/2 +50);
+      stroke
+      fill(c)
+      rect(width/2,height/2+50,50)
     }
     if (mapSelect === 2){
       if (go === true){
@@ -118,6 +122,12 @@ function draw() {
       stroke
       fill(c)
       rect(width/2,height/2+50,50)
+      hitboxUp();
+      hitboxDown();
+      hitboxLeft();
+      hitboxRight();
+      // hitboxDAngles();
+      hitboxULAngle();
     }
     
   }
@@ -226,7 +236,7 @@ function upAngles(){
   if(keyIsDown(UP_ARROW) && keyIsDown(LEFT_ARROW)){
     if (panX < 565){
       if (panY < 180){
-      panX += playerSpeed/2.25
+      panX += playerSpeed
       panY += playerSpeed
       return;
       }
@@ -243,7 +253,7 @@ function upAngles(){
   if(keyIsDown(UP_ARROW) && keyIsDown(RIGHT_ARROW)){
     if (panX < -180){
       if (panY < 180){
-      panX -= playerSpeed/2.25
+      panX -= playerSpeed
       panY += playerSpeed
       return;
       }
@@ -261,8 +271,8 @@ function downAngles(){
   if(keyIsDown(DOWN_ARROW) && keyIsDown(RIGHT_ARROW)){
     if (panX > -5670){
       if (panY > - 2660){
-      panX -= playerSpeed/1.25
-      panY -= playerSpeed/2
+      panX -= playerSpeed
+      panY -= playerSpeed
       return;
       }
     }
@@ -279,8 +289,8 @@ function downAngles(){
   if(keyIsDown(DOWN_ARROW) && keyIsDown(LEFT_ARROW)){
     if (panX < -180){
       if (panY > - 2660){
-      panX += playerSpeed/1.25
-      panY -= playerSpeed/2
+      panX += playerSpeed
+      panY -= playerSpeed
       return;
       }
     }
@@ -294,6 +304,102 @@ function downAngles(){
   }
 
 }
-function testSquare(){
+function hitboxUp(){
+  for(let i=0; i<=20; i++){
+    c = get(width/2, height/2-i);
+
+    if (c [0]+c[1]+c[2]=== 0 ){
+      panY-= playerSpeed;
+      return;
+    }
+
+  }
+
+}
+function hitboxDown(){
+  for(let i=0; i<=30; i++){
+    c = get(width/2, height/2+i);
+
+    if (c [0]+c[1]+c[2]=== 0 ){
+      panY+= playerSpeed
+      return;
+    }
+
+  }
+
+}
+function hitboxLeft(){
+  for(let i=0; i<=30; i++){
+    c = get(width/2-i, height/2);
+
+    if (c [0]+c[1]+c[2]=== 0 ){
+      panX-= playerSpeed
+      return;
+    }
+
+  }
+
+}
+function hitboxRight(){
+  for(let i=0; i<=30; i++){
+    c = get(width/2+i, height/2);
+
+    if (c [0]+c[1]+c[2]=== 0 ){
+      panX+= playerSpeed
+      return;
+    }
+
+  }
+
+}
+function hitboxDAngles(){
+  for(let i=0; i<=30; i++){
+    c = get(width/2, height/2+i);
+
+    if (c [0]+c[1]+c[2]=== 0 ){
+      c = get(width/2-i, height/2);
+      if(c[0]+c[1]+c[2]=== 0){
+        panX+= playerSpeed;
+        panY+= playerSpeed;
+        return;
+      }
+
+    }
+
+  }
+
+}
+function hitboxULAngle(){
+  for(let i=0; i<=35; i++){
+    c = get(width/2, height/2-i);
+
+    if (c [0]+c[1]+c[2]=== 0 ){
+      c = get(width/2+i, height/2);
+      if (c [0]+c[1]+c[2]=== 0 ){
+        panX+= 30;
+        panY-= 30;
+        return;
+      }
+
+    }
+
+  }
+
+}
+function hitboxURAngle(){
+  for(let i=0; i<=35; i++){
+    c = get(width/2, height/2-i);
+
+    if (c [0]+c[1]+c[2]=== 0 ){
+      c = get(width/2-i, height/2);
+      if (c [0]+c[1]+c[2]=== 0 ){
+        panX+= 30;
+        panY-= 30;
+        return;
+      }
+
+    }
+
+  }
 
 }
