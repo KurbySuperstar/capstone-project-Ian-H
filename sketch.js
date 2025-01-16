@@ -23,13 +23,14 @@ let mapSelect;
 let muteCityMap;
 let panX = -1200;
 let panY = 0;
-let playerC;
+let playerfalcon;
 let bigBlueMusic;
 let muteCityMusic;
 let go = true;
 let playerSpeed = 30;
 let bigBlueMap;
 let c;
+let ca;
 
 
 function preload() {
@@ -117,17 +118,16 @@ function draw() {
         go = false
       }
       image(muteCityMap,0 + panX,0 + panY);
-      playerCar();
-      c = get(width/2, height/2 +50);
-      stroke
-      fill(c)
-      rect(width/2,height/2+50,50)
+      hitboxULAngle();
+      hitboxURAngle();
+      hitboxDLAngle();
+      hitboxDRAngle();
       hitboxUp();
       hitboxDown();
       hitboxLeft();
       hitboxRight();
-      // hitboxDAngles();
-      hitboxULAngle();
+      playerCar();
+      imageMode(CORNER);
     }
     
   }
@@ -227,17 +227,22 @@ function mousePressed(){
   }
 }
 function playerCar(){
-  
-  image(playerC,width/2,height/2,50,50)
-  upAngles();
-  downAngles();
+  if(carSelect === 1){
+    imageMode(CENTER)
+    image(playerfalcon,width/2,height/2,50,50)
+    upAngles();
+    downAngles();
+  }
+  if(carSelect === 2){}
+  if(carSelect === 3){}
+  if(carSelect === 4){}
 }
 function upAngles(){
   if(keyIsDown(UP_ARROW) && keyIsDown(LEFT_ARROW)){
     if (panX < 565){
       if (panY < 180){
-      panX += playerSpeed
-      panY += playerSpeed
+      panX += playerSpeed/3 + playerSpeed/3;
+      panY += playerSpeed/3 + playerSpeed/3;
       return;
       }
     }
@@ -253,8 +258,8 @@ function upAngles(){
   if(keyIsDown(UP_ARROW) && keyIsDown(RIGHT_ARROW)){
     if (panX < -180){
       if (panY < 180){
-      panX -= playerSpeed
-      panY += playerSpeed
+      panX -= playerSpeed/3 + playerSpeed/3;
+      panY += playerSpeed/3 + playerSpeed/3;
       return;
       }
     }
@@ -271,8 +276,8 @@ function downAngles(){
   if(keyIsDown(DOWN_ARROW) && keyIsDown(RIGHT_ARROW)){
     if (panX > -5670){
       if (panY > - 2660){
-      panX -= playerSpeed
-      panY -= playerSpeed
+      panX -= playerSpeed/3 + playerSpeed/3;
+      panY -= playerSpeed/3 + playerSpeed/3;
       return;
       }
     }
@@ -289,8 +294,8 @@ function downAngles(){
   if(keyIsDown(DOWN_ARROW) && keyIsDown(LEFT_ARROW)){
     if (panX < -180){
       if (panY > - 2660){
-      panX += playerSpeed
-      panY -= playerSpeed
+      panX += playerSpeed/3 + playerSpeed/3;
+      panY -= playerSpeed/3 + playerSpeed/3;
       return;
       }
     }
@@ -305,8 +310,9 @@ function downAngles(){
 
 }
 function hitboxUp(){
-  for(let i=0; i<=20; i++){
-    c = get(width/2, height/2-i);
+  for(let i=0; i<=30; i++){
+    c = get(width/2+25, height/2+25-i);
+    //circle(width/2,height/2-i,3)
 
     if (c [0]+c[1]+c[2]=== 0 ){
       panY-= playerSpeed;
@@ -317,10 +323,12 @@ function hitboxUp(){
 
 }
 function hitboxDown(){
+  //line(width/2+25,height/2+25,width/2+25,height/2+55)
   for(let i=0; i<=30; i++){
-    c = get(width/2, height/2+i);
+    c = get(width/2+25,height/2+25+i);
 
     if (c [0]+c[1]+c[2]=== 0 ){
+      console.log(i,'down')
       panY+= playerSpeed
       return;
     }
@@ -330,7 +338,7 @@ function hitboxDown(){
 }
 function hitboxLeft(){
   for(let i=0; i<=30; i++){
-    c = get(width/2-i, height/2);
+    c = get(width/2+25-i, height/2+25);
 
     if (c [0]+c[1]+c[2]=== 0 ){
       panX-= playerSpeed
@@ -342,7 +350,7 @@ function hitboxLeft(){
 }
 function hitboxRight(){
   for(let i=0; i<=30; i++){
-    c = get(width/2+i, height/2);
+    c = get(width/2+25+i, height/2+25);
 
     if (c [0]+c[1]+c[2]=== 0 ){
       panX+= playerSpeed
@@ -370,14 +378,14 @@ function hitboxDAngles(){
 
 }
 function hitboxULAngle(){
-  for(let i=0; i<=35; i++){
-    c = get(width/2, height/2-i);
+  for(let i=0; i<=30; i++){
+    c = get(width/2+25, height/2+25-i);
 
     if (c [0]+c[1]+c[2]=== 0 ){
-      c = get(width/2+i, height/2);
-      if (c [0]+c[1]+c[2]=== 0 ){
-        panX+= 30;
-        panY-= 30;
+      ca = get(width/2+25+i, height/2+25);
+      if (ca [0]+ca[1]+ca[2]=== 0 ){
+        panX+= playerSpeed-5;
+        panY-= playerSpeed-5;
         return;
       }
 
@@ -387,14 +395,14 @@ function hitboxULAngle(){
 
 }
 function hitboxURAngle(){
-  for(let i=0; i<=35; i++){
-    c = get(width/2, height/2-i);
+  for(let i=0; i<=30; i++){
+    c = get(width/2+25, height/2+25-i);
 
     if (c [0]+c[1]+c[2]=== 0 ){
-      c = get(width/2-i, height/2);
-      if (c [0]+c[1]+c[2]=== 0 ){
-        panX+= 30;
-        panY-= 30;
+      ca = get(width/2+25+i, height/2+25);
+      if (ca [0]+ca[1]+ca[2]=== 0 ){
+        panX-= playerSpeed;
+        panY-= playerSpeed;
         return;
       }
 
@@ -402,4 +410,41 @@ function hitboxURAngle(){
 
   }
 
+}
+function hitboxDRAngle(){
+  for(let i=0; i<=30; i++){
+    c = get(width/2+25, height/2+25+i);
+
+    if (c [0]+c[1]+c[2]=== 0 ){
+      ca = get(width/2+25-i, height/2+25);
+      if (ca [0]+ca[1]+ca[2]=== 0 ){
+        panX-= playerSpeed;
+        panY+= playerSpeed;
+        return;
+      }
+
+    }
+
+  }
+
+}
+function hitboxDLAngle(){
+  for(let i=0; i<=30; i++){
+    c = get(width/2-25-i, height/2+25+i);
+    // circle(width/2-25-i, height/2+25+i,2);
+
+    if (c [0]+c[1]+c[2]=== 0 ){
+        panX-= playerSpeed;
+        panY+= playerSpeed;
+        return;
+    }
+    }
+
+  }
+
+
+
+function HitBoxes(){
+  
+    
 }
