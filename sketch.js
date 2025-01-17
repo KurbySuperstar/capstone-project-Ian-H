@@ -15,7 +15,7 @@ let mapMusicStarted = false;
 let Falcon;
 let Taxi;
 let Goose;
-let Pirhana;
+let Stingray;
 let carSelect;
 let bigBlue;
 let muteCity;
@@ -24,6 +24,9 @@ let muteCityMap;
 let panX = -1200;
 let panY = 0;
 let playerfalcon;
+let playerTaxi;
+let playerGoose;
+let playerStingray;
 let bigBlueMusic;
 let muteCityMusic;
 let go = true;
@@ -38,13 +41,16 @@ function preload() {
   carSelectMusic = loadSound("resources/F-Zero - Intro (Super Nintendo) [ ezmp3.cc ].mp3")
   Falcon = loadImage('resources/falcon1.gif');
   Taxi = loadImage('resources/taxi.gif');
-  Pirhana = loadImage('resources/Pcar.gif');
+  Stingray = loadImage("resources/Fire_Stingray.gif");
   Goose = loadImage('resources/goose.gif');
   bigBlue = loadImage('resources/BigBlue.png');
   bigBlueMap = loadImage("resources/bigBlueMap.png")
   muteCity = loadImage('resources/MuteCity.png');
   muteCityMap = loadImage('resources/MuteCityMap.png');
-  playerC = loadImage('resources/FZeroCar.png');
+  playerfalcon = loadImage('resources/FZeroCar.png');
+  playerTaxi = loadImage("resources/taxiCar.png")
+  playerGoose = loadImage("resources/gooseCar.png")
+  playerStingray = loadImage("resources/Fire_Stingray10.png")
   bigBlueMusic = loadSound("resources/F-Zero - Big Blue (Super Nintendo).mp3")
   muteCityMusic = loadSound("resources/F-Zero - Mute City (Super Nintendo).mp3")
 }
@@ -77,7 +83,7 @@ function draw() {
     image(tunnelVideo, 0, 0, width, height);
     image(Falcon, width/4, height/1.75,400,400);
     image(Taxi,width/1.7,height/1.75,400,400)
-    image(Pirhana,width/1.7,height/5.5,400,400)
+    image(Stingray,width/1.7,height/5.5,400,400)
     image(Goose,width/4,height/5.5,400,400)
     carSelectionScreen();
   }
@@ -106,11 +112,17 @@ function draw() {
         go = false
       }
       image(bigBlueMap,0 + panX,0 + panY);
+      hitboxULAngle();
+      hitboxURAngle();
+      hitboxDLAngle();
+      hitboxDRAngle();
+      hitboxUp();
+      hitboxDown();
+      hitboxLeft();
+      hitboxRight();
       playerCar();
-      c = get(width/2, height/2 +50);
-      stroke
-      fill(c)
-      rect(width/2,height/2+50,50)
+      imageMode(CORNER);
+
     }
     if (mapSelect === 2){
       if (go === true){
@@ -194,14 +206,14 @@ function mousePressed(){
 
   }
   if((mouseX > width/4 && mouseX < width/4+375 ) && (mouseY > height/5.5 && mouseY < height/5.5+400 )&& (gameActive === 1)){
-    //pirhana
+    //goose
     carSelect = 3;
     gameActive = 2;
     return;
 
   }
   if((mouseX > width/1.7 && mouseX < width/1.7+375 ) && (mouseY > height/5.5 && mouseY < height/5.5+400 )&& (gameActive === 1)){
-    //goose
+    //stingray
     carSelect = 4;
     gameActive = 2;
     return;
@@ -228,24 +240,35 @@ function mousePressed(){
 }
 function playerCar(){
   if(carSelect === 1){
-    imageMode(CENTER)
+    imageMode(CENTER)   
     image(playerfalcon,width/2,height/2,50,50)
     upAngles();
     downAngles();
   }
-  if(carSelect === 2){}
-  if(carSelect === 3){}
-  if(carSelect === 4){}
+  if(carSelect === 2){
+    imageMode(CENTER)   
+    image(playerTaxi,width/2,height/2,100,100)
+    upAngles();
+    downAngles();
+  }
+  if(carSelect === 3){
+    imageMode(CENTER)   
+    image(playerGoose,width/2,height/2,50,50)
+    upAngles();
+    downAngles();
+  }
+  if(carSelect === 4){
+    imageMode(CENTER)   
+    image(playerStingray,width/2,height/2,100,100)
+    upAngles();
+    downAngles();
+  }
 }
 function upAngles(){
   if(keyIsDown(UP_ARROW) && keyIsDown(LEFT_ARROW)){
-    if (panX < 565){
-      if (panY < 180){
       panX += playerSpeed/3 + playerSpeed/3;
       panY += playerSpeed/3 + playerSpeed/3;
       return;
-      }
-    }
   }
   else if(keyIsDown(DOWN_ARROW)){
     if (panY > -2660){
@@ -256,13 +279,11 @@ function upAngles(){
 
 
   if(keyIsDown(UP_ARROW) && keyIsDown(RIGHT_ARROW)){
-    if (panX < -180){
-      if (panY < 180){
+
       panX -= playerSpeed/3 + playerSpeed/3;
       panY += playerSpeed/3 + playerSpeed/3;
       return;
-      }
-    }
+
   }
   else if(keyIsDown(UP_ARROW)){
     if (panY < 180){
@@ -274,13 +295,11 @@ function upAngles(){
 }
 function downAngles(){
   if(keyIsDown(DOWN_ARROW) && keyIsDown(RIGHT_ARROW)){
-    if (panX > -5670){
-      if (panY > - 2660){
+
       panX -= playerSpeed/3 + playerSpeed/3;
       panY -= playerSpeed/3 + playerSpeed/3;
       return;
-      }
-    }
+
 
   }
   else if(keyIsDown(RIGHT_ARROW)){
@@ -292,13 +311,10 @@ function downAngles(){
   }
 
   if(keyIsDown(DOWN_ARROW) && keyIsDown(LEFT_ARROW)){
-    if (panX < -180){
-      if (panY > - 2660){
+
       panX += playerSpeed/3 + playerSpeed/3;
       panY -= playerSpeed/3 + playerSpeed/3;
       return;
-      }
-    }
   }
   
   else if( keyIsDown(LEFT_ARROW)){
@@ -312,7 +328,6 @@ function downAngles(){
 function hitboxUp(){
   for(let i=0; i<=30; i++){
     c = get(width/2+25, height/2+25-i);
-    //circle(width/2,height/2-i,3)
 
     if (c [0]+c[1]+c[2]=== 0 ){
       panY-= playerSpeed;
@@ -441,10 +456,3 @@ function hitboxDLAngle(){
     }
 
   }
-
-
-
-function HitBoxes(){
-  
-    
-}
