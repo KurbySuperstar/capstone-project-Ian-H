@@ -30,13 +30,14 @@ let playerStingray;
 let bigBlueMusic;
 let muteCityMusic;
 let go = true;
-let playerSpeed = 30;
+let playerSpeed = 10;
 let bigBlueMap;
 let c;
 let ca;
 
 
 function preload() {
+  //loads all gifs and images and maps for the game
   soundFormats('mp3', 'ogg')
   carSelectMusic = loadSound("resources/F-Zero - Intro (Super Nintendo) [ ezmp3.cc ].mp3")
   Falcon = loadImage('resources/falcon1.gif');
@@ -55,6 +56,7 @@ function preload() {
   muteCityMusic = loadSound("resources/F-Zero - Mute City (Super Nintendo).mp3")
 }
 function setup() {
+  //makes the inital and gif backgrounds
   createCanvas(windowWidth, windowHeight);
   tunnelVideo = createVideo('resources/Tunnel Lights Passage Free Stock Video - Pixabay.mp4');
   tunnelVideo.hide();
@@ -66,11 +68,13 @@ function setup() {
 function draw() {
 
   if (gameActive === 0) {
+    //draw the title screen
     myBackground();
     myTitle();
     startGame();
   }
   if (gameActive === 1) {
+    // bring up the car selection screen displaying all 4 car gifs
     background(255)
     if (mouseIsPressed && musicStarted === false) {
 
@@ -375,25 +379,25 @@ function hitboxRight(){
   }
 
 }
-function hitboxDAngles(){
-  for(let i=0; i<=30; i++){
-    c = get(width/2, height/2+i);
+// function hitboxDAngles(){
+//   for(let i=0; i<=30; i++){
+//     c = get(width/2, height/2+i);
 
-    if (c [0]+c[1]+c[2]=== 0 ){
-      c = get(width/2-i, height/2);
-      if(c[0]+c[1]+c[2]=== 0){
-        panX+= playerSpeed;
-        panY+= playerSpeed;
-        return;
-      }
+//     if (c [0]+c[1]+c[2]=== 0 ){
+//       c = get(width/2-i, height/2);
+//       if(c[0]+c[1]+c[2]=== 0){
+//         panX+= playerSpeed;
+//         panY+= playerSpeed;
+//         return;
+//       }
 
-    }
+//     }
 
-  }
+//   }
 
-}
+// }
 function hitboxULAngle(){
-  for(let i=0; i<=30; i++){
+  for(let i=10; i<=30; i++){
     c = get(width/2+25, height/2+25-i);
 
     if (c [0]+c[1]+c[2]=== 0 ){
@@ -401,6 +405,7 @@ function hitboxULAngle(){
       if (ca [0]+ca[1]+ca[2]=== 0 ){
         panX+= playerSpeed-5;
         panY-= playerSpeed-5;
+        print("upleft")
         return;
       }
 
@@ -410,7 +415,7 @@ function hitboxULAngle(){
 
 }
 function hitboxURAngle(){
-  for(let i=0; i<=30; i++){
+  for(let i=10; i<=30; i++){
     c = get(width/2+25, height/2+25-i);
 
     if (c [0]+c[1]+c[2]=== 0 ){
@@ -418,6 +423,7 @@ function hitboxURAngle(){
       if (ca [0]+ca[1]+ca[2]=== 0 ){
         panX-= playerSpeed;
         panY-= playerSpeed;
+        print("upright")
         return;
       }
 
@@ -427,14 +433,15 @@ function hitboxURAngle(){
 
 }
 function hitboxDRAngle(){
-  for(let i=0; i<=30; i++){
+  for(let i=10; i<=30; i++){
     c = get(width/2+25, height/2+25+i);
 
     if (c [0]+c[1]+c[2]=== 0 ){
-      ca = get(width/2+25-i, height/2+25);
+      ca = get(width/2+25+i, height/2+25);
       if (ca [0]+ca[1]+ca[2]=== 0 ){
         panX-= playerSpeed;
         panY+= playerSpeed;
+        print("downright")
         return;
       }
 
@@ -444,15 +451,19 @@ function hitboxDRAngle(){
 
 }
 function hitboxDLAngle(){
-  for(let i=0; i<=30; i++){
-    c = get(width/2-25-i, height/2+25+i);
-    // circle(width/2-25-i, height/2+25+i,2);
+  for(let i=10; i<=30; i++){
+    c = get(width/2+25, height/2+25+i);
 
     if (c [0]+c[1]+c[2]=== 0 ){
-        panX-= playerSpeed;
+      ca = get(width/2+25-i, height/2+25);
+      if (ca [0]+ca[1]+ca[2]=== 0 ){
+        panX+= playerSpeed;
         panY+= playerSpeed;
+        print("downleft")
         return;
-    }
+      }
+
     }
 
+  }
   }
